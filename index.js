@@ -116,7 +116,8 @@ form.addEventListener("submit", function (event) {
     }
     if(editIndex != undefined){
         data.splice(editIndex,1);
-        message = 'Record updated successfully'
+        message = 'Record updated successfully';
+        editIndex= undefined;
     }
     data.push(values);
     appendTableData(data);
