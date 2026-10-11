@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/lib/index.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="stu-container">
+        <div class="header w-3/4">
+            <div>
+                <h1>Student Registration</h1>
+                <p class="add_new">Add new Student</p>
+                <p class="list">Student List</p>
+            </div>
+            <div class="button add_new">
+                <button class="btn" id="back_btn" onclick="hideShowBlock('block', 'none')"><i class="fa-solid fa-arrow-left"></i><span>Back</span></button> 
+            </div>
+            <div class="button list">
+                <button class="btn btn-add" id="add_new_btn" onclick="hideShowBlock('none', 'block')"><i class="fa-solid fa-user-plus"></i><span>Add Student</span></button> 
+            </div>
+        </div>
+        <!-- form section -->
+        <section class="flex items-center justify-center mt-3"  >
+        <div class="w-3/4 form-section add_new">
+            <form id="studentForm">  
+                <div class="form">
+                    <div class="form-group">
+                        <label for="fname">First Name <span class="error-message"> *</span></label>
+                        <div class="form-control">
+                            <input type="text" name="fname" id="fname" placeholder="Enter First Name" onkeyup="fieldCheck('fname','fname_err', 'First name is required')"/>
+                        </div>
+                        <div class="error-message">
+                            <p id="fname_err" class="error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name </label>
+                        <div class="form-control">
+                            <input type="text" name="lname" id="lname" placeholder="Enter Last Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date Of Birth <span class="error-message"> *</span></label>
+                        <div class="form-control">
+                            <input type="date" name="dob" id="dob" onchange="fieldCheck('dob','dob_err', 'Date of birth is required')"/>
+                        </div>
+                        <div class="error-message">
+                            <p id="dob_err" class="error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender <span class="error-message"> *</span></label>
+                        <div class="form-control">
+                            <select name="gender" id="gender" onchange="fieldCheck('gender','gender_err', 'Gender is required')">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Transgender">Transgender</option>
+                            </select>
+                        </div>
+                        <div class="error-message">
+                            <p id="gender_err" class="error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact_number">Contact Number <span class="error-message"> *</span></label>
+                        <div class="form-control">
+                            <input type="text" name="contact_number" id="contact_number" placeholder="Enter Contact Number" onkeyup="fieldCheck('contact_number','contact_number_err', 'Contact number is required')"/>
+                        </div>
+                        <div class="error-message">
+                            <p id="contact_number_err" class="error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="error-message"> *</span></label>
+                        <div class="form-control">
+                            <input type="text" name="email" id="email" placeholder="Enter Email Address" onkeyup="fieldCheck('email','email_err', 'Email is required')"/>
+                        </div>
+                        <div class="error-message">
+                            <p id="email_err" class="error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <div class="form-control">
+                            <textarea name="address" id="address" placeholder="Enter Address" onkeyup="fieldCheck('address','address_err', 'Maximum 200 characters allowed')" onchange="fieldCheck('address','address_err', 'Maximum 200 characters allowed')"></textarea>
+                        </div>
+                        <div class="error-message">
+                            <p id="address_err" class="error"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-btn">
+                    <button type="button" class="btn" id="reset" onclick="resetForm()">Reset</button>
+                    <button type="submit" class="btn btn-add"  id="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        </section>
+        
+        <!-- Table list -->
+        <section class="flex items-center justify-center mt-3 list-section">            
+            <div class="w-3/4 list table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.no</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date Of Birth</th>
+                            <th>Gender</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr id="no_data_row">
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Model popup -->
+         <div class="overlay">
+            <div class="model">
+                <div class="model-content">
+                    <div class="success-icon">
+                        <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <path
+                            d="M20 6L9 17L4 12"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                    </div>
+                    <div class="message">
+                        <h3>Success!</h3>
+                        <p id="model-content"></p>
+                    </div>
+                </div>
+                <div class="model-btn">
+                    <button id="model-btn" onclick="modelOpenClose('none')">Ok</button>
+                </div>
+            </div>
+         </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
